@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="形式系统与数学概念知识库。阅读笔记、查看公式，并沿双向链接追溯概念依赖。">
+  <meta name="theme-color" content="#122a32"><title>形式 · 知识库</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/tex-macros.js"></script><script src="/math-config.js"></script>
+  <script defer src="/vendor/mathjax/tex-chtml.js"></script>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#reader">跳转到正文</a>
+  <aside class="library" id="library" aria-label="知识库目录">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">⊢</span><span>形式 <i>·</i> 知识库<small>FORMAL KNOWLEDGE</small></span></a>
+    <div class="library-label">笔记集 <span id="total-count">—</span></div>
+    <nav id="collections" aria-label="笔记集"><button class="collection active" data-group="57"><span class="collection-num">57</span><span>数理逻辑<small>Mathematical Logic</small></span><b>327</b></button></nav>
+    <div class="library-divider"></div>
+    <label class="find-note"><span aria-hidden="true">⌕</span><input id="note-search" type="search" placeholder="查找笔记、别名…" aria-label="查找笔记、别名"><kbd>/</kbd></label>
+    <div class="list-heading"><span id="list-title">数理逻辑</span><span id="list-count"></span></div>
+    <nav id="note-list" class="note-list" aria-label="笔记列表"></nav>
+    <div class="library-bottom"><span id="group-count">笔记集</span><span id="snapshot-date">知识库快照</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="toolbar">
+      <button id="menu-button" class="icon-button mobile-only" aria-label="打开笔记目录" aria-expanded="false" aria-controls="library">☰</button>
+      <div class="breadcrumb"><span id="breadcrumb-group">数理逻辑</span><span aria-hidden="true">/</span><span>阅读</span></div>
+      <div class="toolbar-actions"><label class="formula-mode-label" for="formula-mode">公式</label><select id="formula-mode" aria-label="长公式显示方式"><option value="linebreak">自动换行</option><option value="scroll">横向滚动</option><option value="scale">缩放适应</option></select></div>
+    </header>
+    <div class="reading-layout">
+      <main id="reader" tabindex="-1">
+        <div id="note-header"></div>
+        <section id="properties" aria-label="笔记元数据"></section>
+        <article id="note-body" class="prose" aria-label="笔记正文"><p>正在读取笔记…</p></article>
+        <section id="reference-footer" class="reference-footer" aria-label="引用与依赖"></section>
+      </main>
+      <aside class="context" aria-label="目录与反向链接"><div class="context-inner">
+        <section class="toc-section"><div class="section-caption">本页目录</div><nav id="toc" aria-label="本页目录"></nav></section>
+        <section class="backlinks-section"><div class="section-caption">引用此笔记 <span id="backlink-count">0</span></div><p class="context-description">从依赖它的笔记继续阅读</p><div id="backlinks"></div></section>
+      </div></aside>
+    </div>
+  </div>
+  <button id="sidebar-scrim" aria-label="关闭目录" tabindex="-1" hidden></button>
+  <dialog id="formula-dialog" aria-labelledby="formula-dialog-title"><header><div><span class="section-caption">公式阅读</span><h2 id="formula-dialog-title">完整公式</h2></div><button class="dialog-close" aria-label="关闭公式">×</button></header><p class="dialog-hint">可以横向滚动查看全部内容。</p><div id="expanded-formula" class="expanded-formula" tabindex="0" role="region" aria-label="完整公式，支持横向滚动"></div><details><summary>原始 LaTeX 源码</summary><pre id="formula-source"></pre></details></dialog>
+  <dialog id="link-dialog" aria-labelledby="link-dialog-title"><header><h2 id="link-dialog-title">链接目标</h2><button class="dialog-close" aria-label="关闭链接详情">×</button></header><div id="link-dialog-content"></div></dialog>
+  <div id="notice" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">请启用 JavaScript 以阅读知识库与数学公式。</div></noscript>
+</body>
+</html>

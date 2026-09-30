@@ -1,0 +1,18 @@
+{
+  "coloneqq": "\\mathrel{:=}",
+  "eqqcolon": "\\mathrel{=:}",
+  "llbracket": "⟦",
+  "rrbracket": "⟧",
+  "L": "\\unicode{x0141}",
+  "parr": "\\mathbin{⅋}",
+  "with": "\\mathbin{\\&}",
+  "emp": "\\mathsf{emp}",
+  "Tau": "\\mathrm{T}",
+  "ran": "\\operatorname{ran}",
+  "Sha": "\\unicode{x0428}",
+  "MA": "\\mathrm{MA}",
+  "Boxcube": "\\mathrm{Boxcube}",
+  "rel": "\\mathrel{\\mathrm{rel}}",
+  "dotminus": "\\mathbin{\\dot{-}}",
+  "raisebox": ["\\raise #1 \\hbox{#2}", 2]
+}
