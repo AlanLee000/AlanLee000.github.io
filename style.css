@@ -12,3 +12,43 @@ dialog{width:min(1200px,calc(100vw - 48px));max-height:calc(100vh - 60px);border
 
 .property-total{float:right;color:var(--muted);font-size:12px;font-weight:400}.property-more summary{cursor:pointer;color:var(--muted);padding:6px 0}.property-more dl{margin:0}.more-backlinks{border:1px solid #c9dddf;color:var(--teal);padding:8px 10px;border-radius:5px;font-size:13px;width:100%;background:#fff}.footer-count{font:13px var(--sans);color:var(--muted);margin-left:8px}.unresolved-list{margin-top:22px;color:#826129;font-size:13px}.unresolved-list>summary{cursor:pointer}.snapshot-note{font-size:12px;color:var(--muted);margin-top:28px;padding-top:19px;border-top:1px solid var(--line)}.reference-target{outline:2px solid #58aea6;outline-offset:5px;background:#e5f6f3!important;scroll-margin-top:100px}.link-target-name{overflow-wrap:anywhere;color:var(--teal);font-size:15px}.sidebar-open{overflow:hidden}#reader[aria-busy=true]{opacity:.72}.math-inline mjx-container{line-height:1.4}.collection{font-size:14px}.toolbar select{font-size:14px}.collection small{font-size:12px}.property-row dd>p{margin:0}
 .backlink-context{display:none!important}.library nav{scrollbar-color:#526e79 #122a32;scrollbar-width:thin}.equation-note{position:absolute;left:11px;bottom:6px;font-size:12px;color:#6d7f85}.formula-fallback p,.source-warning{font:13px/1.7 var(--sans);color:#82612a}.formula-fallback pre{font:14px/1.7 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:none;border:0;padding:3px;margin:5px 0}.source-warning{padding:12px 15px;background:#fff8e9;border:1px solid #e9d9b6;border-radius:5px}.inline-math-error{font:14px Consolas,monospace;color:#875d25;overflow-wrap:anywhere}.property-list>dl{margin:0}
+
+/* Keep mathematical expressions out of the prose's emergency word wrapping. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.workspace,.reading-layout,.prose{min-width:0}
+.breadcrumb{flex:1;overflow:hidden}
+.breadcrumb>:first-child{min-width:0}
+.breadcrumb>:not(:first-child),.icon-button{flex-shrink:0}
+.eyebrow{flex-wrap:wrap;align-items:baseline}
+.type-badge{flex-shrink:0;white-space:nowrap}
+.note-title{overflow-wrap:break-word;word-break:normal}
+.math-inline{display:inline-block;max-width:100%;vertical-align:middle;overflow-x:auto;overflow-y:hidden;overflow-wrap:normal;word-break:normal;padding:.15em 0;scrollbar-width:thin;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.math-inline mjx-container{max-width:none;line-height:0;white-space:nowrap}
+.math-inline.has-wide-formula{max-width:calc(100% - 1em)}
+.equation mjx-container{overflow-wrap:normal;word-break:normal}
+.math-display,.expanded-formula{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.equation-scroll-hint{position:absolute;left:11px;bottom:7px;font-size:12px;color:var(--muted)}
+.has-wide-formula .equation-note{display:none}
+.has-wide-formula .math-display>mjx-container[overflow=scroll]{text-align:left}
+.library{height:100vh;height:100dvh}
+.library .brand,.library-label,.find-note,.list-heading,.library-bottom{flex-shrink:0}
+.collection>span:nth-child(2){min-width:0;overflow-wrap:break-word}
+
+@media(max-width:760px){
+  .toolbar{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));gap:10px}
+  .icon-button{width:36px;min-height:44px}
+  .toolbar select{min-height:40px}
+  #reader{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+  .find-note input{font-size:16px}
+  .brand{padding-top:20px;padding-bottom:20px}
+  #collections{max-height:32vh;max-height:32dvh}
+  .note-list{min-height:0;overscroll-behavior:contain}
+  .equation{padding-bottom:43px}
+  .equation-action{min-height:36px;bottom:2px;padding:4px 8px}
+  .equation-scroll-hint{bottom:13px}
+  .prose blockquote{padding-left:13px;padding-right:13px}
+}
+@media(max-width:360px){
+  .property-row{grid-template-columns:70px minmax(0,1fr);gap:8px}
+  .breadcrumb>:last-child,.breadcrumb>:nth-child(2){display:none}
+}

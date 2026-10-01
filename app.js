@@ -45,13 +45,31 @@ function restoreMath(root){
   root.querySelectorAll('.math-inline').forEach(el=>el.textContent='\\('+normalizeTex(el.dataset.tex)+'\\)');
   root.querySelectorAll('.equation').forEach(el=>el.querySelector('.math-display').textContent='\\['+normalizeTex(el.dataset.tex)+'\\]');
 }
+function updateFormulaOverflow(root){
+  root.querySelectorAll('.equation').forEach(figure=>{
+    const display=figure.querySelector('.math-display');
+    const scroller=display.querySelector('mjx-container[overflow="scroll"]')||display;
+    const wide=scroller.scrollWidth>scroller.clientWidth+2||display.scrollWidth>display.clientWidth+2;
+    let hint=figure.querySelector('.equation-scroll-hint');
+    if(wide&&!hint){hint=document.createElement('span');hint.className='equation-scroll-hint';hint.textContent='左右滑动查看';figure.append(hint)}
+    if(hint)hint.hidden=!wide;
+    figure.classList.toggle('has-wide-formula',wide);
+  });
+  root.querySelectorAll('.math-inline').forEach(inline=>{
+    const wide=inline.scrollWidth>inline.clientWidth+2;
+    inline.classList.toggle('has-wide-formula',wide);
+    if(wide){inline.tabIndex=0;inline.setAttribute('role','region');inline.setAttribute('aria-label','行内公式，可横向滑动查看完整内容')}
+    else{inline.removeAttribute('tabindex');inline.removeAttribute('role');inline.removeAttribute('aria-label')}
+  });
+}
 async function typesetNote(ticket,reset=false){
   return enqueueMath(async()=>{try{
     const mj=await mathReady();if(ticket!==requestNumber)return;
     const root=$('#reader');if(reset)restoreMath(root);
     mj.startup.document.outputJax.options.displayOverflow=$('#formula-mode').value;
     mj.texReset();root.classList.add('math-pending');await mj.typesetPromise([root]);
-    root.classList.remove('math-pending');root.dataset.mathReady='true';
+    root.classList.remove('math-pending');
+    updateFormulaOverflow(root);lastWidth=$('#note-body').clientWidth;root.dataset.mathReady='true';
     const errors=root.querySelectorAll('mjx-merror');if(errors.length){notice(`${errors.length} 处原始 LaTeX 有语法问题，已保留完整源码。`);for(const error of errors){const figure=error.closest('.equation');if(figure)figure.querySelector('.math-display').innerHTML=`<div class="formula-fallback"><p>原始 LaTeX 有语法问题，以下为完整源码。</p><pre>${esc(figure.dataset.tex)}</pre></div>`;else{const inline=error.closest('.math-inline');if(inline){inline.textContent=inline.dataset.tex;inline.title='原始 LaTeX 有语法问题，已保留源码';inline.classList.add('inline-math-error')}}}}
   }catch(error){$('#reader').classList.remove('math-pending');$('#reader').dataset.mathReady='error';notice('部分公式未能排版，可展开查看完整 LaTeX。');console.error(error)}});
 }
@@ -112,12 +130,13 @@ document.addEventListener('click',event=>{
 $('#menu-button').addEventListener('click',()=>setSidebar(!$('#library').classList.contains('open')));
 $('#sidebar-scrim').addEventListener('click',()=>setSidebar(false));
 $('#note-search').addEventListener('input',()=>{listLimit=60;renderList()});
-$('#formula-mode').addEventListener('change',()=>{try{localStorage.setItem('formal-formula-mode',$('#formula-mode').value)}catch{}if(currentNote)typesetNote(requestNumber,true)});
+$('#formula-mode').addEventListener('change',()=>{try{localStorage.setItem('formal-formula-mode',$('#formula-mode').value)}catch{}if(currentNote){$('#reader').dataset.mathReady='false';typesetNote(requestNumber,true)}});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(event.target.tagName)&&!document.querySelector('dialog[open]')){event.preventDefault();if(matchMedia('(max-width:760px)').matches)setSidebar(true);$('#note-search').focus()}if(event.key==='Escape'&&$('#library').classList.contains('open'))setSidebar(false)});
 window.addEventListener('popstate',()=>{const id=new URLSearchParams(location.search).get('note')||index.home;showNote(id,{anchor:decode(location.hash.slice(1))})});
-window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{setSidebar($('#library').classList.contains('open'),false);const width=$('#note-body').clientWidth;if(currentNote&&Math.abs(width-lastWidth)>30){lastWidth=width;typesetNote(requestNumber,true)}},220)});
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{setSidebar($('#library').classList.contains('open'),false);const width=$('#note-body').clientWidth;if(currentNote&&Math.abs(width-lastWidth)>1){$('#reader').dataset.mathReady='false';typesetNote(requestNumber,true)}},220)});
 document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',event=>{if(event.target===dialog){const b=dialog.getBoundingClientRect();if(event.clientX<b.left||event.clientX>b.right||event.clientY<b.top||event.clientY>b.bottom)dialog.close()}}));
 async function start(){
+  $('#formula-mode').value=matchMedia('(max-width:760px)').matches?'scroll':'linebreak';
   try{const value=localStorage.getItem('formal-formula-mode');if(['linebreak','scroll','scale'].includes(value))$('#formula-mode').value=value}catch{}
   index=await json('/data/index.json');byId=new Map(index.notes.map(n=>{n.searchTitle=norm(n.title);n.search=norm([n.title,n.display,n.path,...n.aliases].join(' '));return [n.id,n]}));
   $('#total-count').textContent=index.count.toLocaleString();$('#group-count').textContent=index.groups.length+' 个笔记集';$('#snapshot-date').textContent=new Date(index.snapshot).toLocaleDateString('zh-CN');
