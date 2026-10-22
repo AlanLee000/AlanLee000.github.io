@@ -1,8 +1,10 @@
 # 形式 · 知识库
 
-12242 篇 Obsidian 笔记的静态发布版本。支持 LaTeX、长公式展示、元数据链接与反向引用。
+公开静态知识库镜像，与 Sites 和完整离线包使用同一最终构建。
 
-- GitHub Pages：https://alanlee000.github.io/
-- 原网站：https://formal-knowledge-atlas-lzy.alanleezero1.chatgpt.site
+网站：https://alanlee000.github.io/  
+Sites：https://formal-knowledge-atlas-lzy.alanleezero1.chatgpt.site
 
-网站内容由本地知识库构建后发布。MathJax 与所需字体已包含在站点中，其许可证见 `vendor/mathjax/LICENSE`。
+当前快照：2026-10-22T16:08:08.322Z；23个目录、12242篇笔记。第90本按用户要求排除。
+
+支持全文搜索、属性与正文链接、反向引用和数学公式。MathJax及字体随站点提供，长公式支持滚动、换行、缩放和展开。
